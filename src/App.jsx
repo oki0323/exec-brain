@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { storage } from './services/storage';
 import Navigation from './components/Navigation';
@@ -9,12 +10,19 @@ import Tracker from './pages/Tracker';
 import Settings from './pages/Settings';
 
 export default function App() {
-  const tutorialDone = storage.isTutorialDone();
+  const [tutorialDone, setTutorialDone] = useState(storage.isTutorialDone());
+
+  function handleTutorialFinish() {
+    setTutorialDone(true);
+  }
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/tutorial" element={<Tutorial />} />
+        <Route
+          path="/tutorial"
+          element={<Tutorial onFinish={handleTutorialFinish} />}
+        />
         <Route
           path="/*"
           element={

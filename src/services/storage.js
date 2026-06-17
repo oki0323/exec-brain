@@ -30,7 +30,7 @@ export const storage = {
   // Settings
   getDifficulty: () => get(KEYS.DIFFICULTY, 'intermediate'),
   setDifficulty: (d) => set(KEYS.DIFFICULTY, d),
-  getApiKey: () => get(KEYS.API_KEY, ''),
+  getApiKey: () => get(KEYS.API_KEY, '') || (import.meta.env.VITE_GEMINI_API_KEY ?? ''),
   setApiKey: (k) => set(KEYS.API_KEY, k),
 
   // Scores — { logical, creative, numerical, decision, verbal }

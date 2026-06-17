@@ -43,7 +43,8 @@ export default function Home() {
       const q = await generateQuestion(todaySkill.key, difficulty, key);
       navigate('/question', { state: { question: q, skill: todaySkill } });
     } catch (e) {
-      setError('問題の生成に失敗しました。APIキーを確認してください。');
+      console.error('generateQuestion error:', e);
+      setError(`問題の生成に失敗しました: ${e?.message ?? e}`);
     } finally {
       setLoading(false);
     }

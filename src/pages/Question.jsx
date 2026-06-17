@@ -51,7 +51,8 @@ export default function Question() {
       storage.updateStreak();
       navigate('/feedback', { state: { feedback, question, skill, answer } });
     } catch (e) {
-      setError('フィードバックの取得に失敗しました。APIキーを確認してください。');
+      console.error('evaluateAnswer error:', e);
+      setError(`フィードバックの取得に失敗しました: ${e?.message ?? String(e)}`);
       setLoading(false);
     }
   }

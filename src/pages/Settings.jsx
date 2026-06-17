@@ -10,7 +10,9 @@ const DIFFICULTIES = [
 
 export default function Settings() {
   const navigate = useNavigate();
-  const [apiKey, setApiKey] = useState(storage.getApiKey());
+  const [apiKey, setApiKey] = useState(
+    storage.getApiKey() || (import.meta.env.VITE_GEMINI_API_KEY ?? '')
+  );
   const [showKey, setShowKey] = useState(false);
   const [difficulty, setDifficulty] = useState(storage.getDifficulty());
   const [saved, setSaved] = useState(false);
