@@ -11,7 +11,7 @@ const DIFFICULTIES = [
 export default function Settings() {
   const navigate = useNavigate();
   const [apiKey, setApiKey] = useState(
-    storage.getApiKey() || (import.meta.env.VITE_GEMINI_API_KEY ?? '')
+    storage.getApiKey() || (import.meta.env.VITE_OPENAI_API_KEY ?? '')
   );
   const [showKey, setShowKey] = useState(false);
   const [difficulty, setDifficulty] = useState(storage.getDifficulty());
@@ -42,10 +42,10 @@ export default function Settings() {
 
       {/* API Key */}
       <div style={{ marginBottom: 24 }}>
-        <p className="section-title">Gemini APIキー</p>
+        <p className="section-title">OpenAI APIキー</p>
         <div className="card">
           <p style={{ fontSize: 13, color: 'var(--text2)', marginBottom: 12 }}>
-            Google AI Studio で取得したAPIキーを入力してください。
+            OpenAI Platform で取得したAPIキーを入力してください。
             キーはブラウザ内（localStorage）にのみ保存されます。
           </p>
           <div style={{ position: 'relative', marginBottom: 10 }}>
@@ -53,7 +53,7 @@ export default function Settings() {
               type={showKey ? 'text' : 'password'}
               value={apiKey}
               onChange={e => setApiKey(e.target.value)}
-              placeholder="AIza..."
+              placeholder="sk-..."
               style={{ paddingRight: 44 }}
             />
             <button
@@ -75,12 +75,12 @@ export default function Settings() {
             </button>
           </div>
           <a
-            href="https://aistudio.google.com/app/apikey"
+            href="https://platform.openai.com/api-keys"
             target="_blank"
             rel="noopener noreferrer"
             style={{ fontSize: 12, color: 'var(--accent-light)', textDecoration: 'none' }}
           >
-            → Google AI Studio でAPIキーを取得する
+            → OpenAI Platform でAPIキーを取得する
           </a>
         </div>
       </div>
@@ -163,7 +163,7 @@ export default function Settings() {
       }}>
         <div style={{ fontSize: 20, marginBottom: 4 }}>🧠</div>
         <div>Exec Brain v1.0</div>
-        <div style={{ marginTop: 4 }}>Powered by Gemini 2.5 Flash</div>
+        <div style={{ marginTop: 4 }}>Powered by OpenAI</div>
       </div>
     </div>
   );
