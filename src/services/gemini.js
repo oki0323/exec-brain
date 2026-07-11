@@ -69,6 +69,66 @@ export async function generateQuestion(skill, difficulty, apiKey) {
   return parseJSON(text);
 }
 
+export async function generateLateralQuiz(difficulty, apiKey) {
+  const prompt = `あなたは「水平思考クイズ（ウミガメのスープ）」の出題者です。
+以下の条件で新しい問題を1問作成してください。プレイヤーは「はい/いいえ」で答えられる質問を重ねながら、隠された真相を推理します。
+
+難易度: ${DIFFICULTY_LABELS[difficulty]}
+
+出力形式（JSONのみ。説明文は一切不要）:
+{
+  "title": "問題タイトル（20文字以内）",
+  "situation": "プレイヤーに提示する一見不可解な状況（100〜200文字程度）",
+  "truth": "実際の真相・全容（150〜300文字程度。プレイヤーには非公開の情報）",
+  "firstHint": "行き詰まった時に使える最初のヒント（40文字以内）"
+}`;
+
+  const text = await generate(apiKey, prompt);
+  return parseJSON(text);
+}
+
+export async function answerLateralQuestion(situation, truth, question, apiKey) {
+  const prompt = `あなたは「水平思考クイズ」の出題者です。以下の真相をもとに、プレイヤーの質問に回答してください。
+
+不可解な状況: ${situation}
+真相（非公開）: ${truth}
+プレイヤーの質問: 「${question}」
+
+回答ルール:
+- 質問の内容が真相に照らして正しいなら「はい」
+- 誤っているなら「いいえ」
+- 状況・真相から判断できない、関係がない、または質問が曖昧な場合は「わからない／関係ない」
+- 真相そのものを書かず、短く端的に回答する
+
+出力形式（JSONのみ。説明文は一切不要）:
+{
+  "answer": "はい" または "いいえ" または "わからない／関係ない",
+  "note": "補足コメント（20文字以内。不要なら空文字）"
+}`;
+
+  const text = await generate(apiKey, prompt);
+  return parseJSON(text);
+}
+
+export async function judgeLateralGuess(situation, truth, guess, apiKey) {
+  const prompt = `あなたは「水平思考クイズ」の出題者です。プレイヤーが推理した内容を、実際の真相と比較して評価してください。
+
+不可解な状況: ${situation}
+真相: ${truth}
+プレイヤーの推理: ${guess}
+
+出力形式（JSONのみ。説明文は一切不要）:
+{
+  "score": 0〜100の整数（真相にどれだけ近いか）,
+  "verdict": "正解" または "惜しい" または "不正解" のいずれか,
+  "comment": "評価コメント（80文字以内）",
+  "truthReveal": "正式な真相の説明文（150〜250文字）"
+}`;
+
+  const text = await generate(apiKey, prompt);
+  return parseJSON(text);
+}
+
 export async function evaluateAnswer(question, answer, skill, apiKey) {
   const prompt = `あなたは経営者思考を評価する厳格なコーチです。
 以下の問題と回答を評価してください。

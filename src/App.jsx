@@ -6,6 +6,7 @@ import Tutorial from './pages/Tutorial';
 import Home from './pages/Home';
 import Question from './pages/Question';
 import Feedback from './pages/Feedback';
+import Lateral from './pages/Lateral';
 import Tracker from './pages/Tracker';
 import Settings from './pages/Settings';
 
@@ -34,6 +35,7 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/question" element={<Question />} />
                   <Route path="/feedback" element={<Feedback />} />
+                  <Route path="/lateral" element={<Lateral />} />
                   <Route path="/tracker" element={<Tracker />} />
                   <Route path="/settings" element={<Settings />} />
                 </Routes>

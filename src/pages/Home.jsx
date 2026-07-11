@@ -138,6 +138,22 @@ export default function Home() {
         </button>
       </div>
 
+      {/* Lateral thinking quiz entry */}
+      <div
+        className="card"
+        onClick={() => navigate('/lateral')}
+        style={{ marginBottom: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 14 }}
+      >
+        <span style={{ fontSize: 28 }}>🧩</span>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text)' }}>水平思考クイズ</div>
+          <div style={{ fontSize: 12, color: 'var(--text2)', marginTop: 2 }}>
+            質問を重ねて隠された真相を推理しよう
+          </div>
+        </div>
+        <span style={{ color: 'var(--text2)' }}>→</span>
+      </div>
+
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 24 }}>
         <div className="card" style={{ textAlign: 'center' }}>

@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 const NAV_ITEMS = [
   { to: '/', icon: '⚡', label: 'ホーム' },
+  { to: '/lateral', icon: '🧩', label: '水平思考' },
   { to: '/tracker', icon: '📊', label: 'トラッカー' },
   { to: '/settings', icon: '⚙️', label: '設定' },
 ];
