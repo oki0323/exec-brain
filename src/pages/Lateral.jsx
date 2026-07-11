@@ -284,13 +284,11 @@ export default function Lateral() {
             onChange={e => setQuestionInput(e.target.value)}
             onKeyDown={e => { if (e.key === 'Enter' && !loadingQuestion) handleAsk(); }}
             placeholder="例: その人物は男性ですか？"
-            style={{ flex: 1, minWidth: 0 }}
           />
           <button
             className="btn btn-primary"
             onClick={handleAsk}
             disabled={loadingQuestion || !questionInput.trim()}
-            style={{ flexShrink: 0, whiteSpace: 'nowrap' }}
           >
             {loadingQuestion ? <div className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }} /> : '質問'}
           </button>
