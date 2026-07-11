@@ -6,6 +6,7 @@ const KEYS = {
   DIFFICULTY: 'exec_brain_difficulty',
   API_KEY: 'exec_brain_api_key',
   HISTORY: 'exec_brain_history',
+  LATERAL_HISTORY: 'exec_brain_lateral_history',
 };
 
 function get(key, fallback = null) {
@@ -49,6 +50,14 @@ export const storage = {
     const history = storage.getHistory();
     history.unshift({ ...entry, date: new Date().toISOString() });
     set(KEYS.HISTORY, history.slice(0, 90));
+  },
+
+  // Lateral thinking quiz history
+  getLateralHistory: () => get(KEYS.LATERAL_HISTORY, []),
+  addLateralHistory: (entry) => {
+    const history = storage.getLateralHistory();
+    history.unshift({ ...entry, date: new Date().toISOString() });
+    set(KEYS.LATERAL_HISTORY, history.slice(0, 50));
   },
 
   // Streak
