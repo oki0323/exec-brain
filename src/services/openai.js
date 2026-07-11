@@ -14,6 +14,22 @@ const DIFFICULTY_LABELS = {
   advanced: '上級',
 };
 
+const BUSINESS_CONTEXTS = [
+  'SaaS/IT企業', '小売・EC', '飲食チェーン', '製造業', '医療・ヘルスケア',
+  '金融・保険', '教育', 'スタートアップの立ち上げ期', '地方の中小企業', '海外展開中の企業',
+  '物流・運送', 'エンタメ・メディア',
+];
+
+const LATERAL_THEMES = [
+  '日常のちょっとした違和感', 'ビジネス・オフィス', '歴史上の出来事', 'SF・近未来',
+  '法廷・事件', '家族・人間関係', '旅行先でのハプニング', '学校・青春',
+  '医療現場', 'スポーツ', '飲食店', '密室', 'ファンタジー世界', '海・船',
+];
+
+function pickRandom(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function parseJSON(text) {
   // Strip markdown code fences
   let cleaned = text
@@ -45,6 +61,7 @@ async function generate(apiKey, prompt) {
           model,
           messages: [{ role: 'user', content: prompt }],
           response_format: { type: 'json_object' },
+          temperature: 1.2,
         }),
       });
 
@@ -67,13 +84,18 @@ async function generate(apiKey, prompt) {
   throw lastError;
 }
 
-export async function generateQuestion(skill, difficulty, apiKey) {
+export async function generateQuestion(skill, difficulty, apiKey, recentQuestions = []) {
+  const context = pickRandom(BUSINESS_CONTEXTS);
+  const avoidNote = recentQuestions.length
+    ? `\n直近で出題した以下の問題とは異なる切り口・業界にしてください:\n${recentQuestions.map(q => `- ${q}`).join('\n')}\n`
+    : '';
   const prompt = `あなたは経営者思考を鍛えるトレーニングアプリの問題作成者です。
 以下の条件で問題を1問作成してください。
 
 スキル領域: ${SKILL_LABELS[skill]}
 難易度: ${DIFFICULTY_LABELS[difficulty]}
-
+業界・シチュエーション: ${context}（この業界設定を活かした具体的な問題にしてください）
+${avoidNote}
 出力形式（JSONのみ。説明文は一切不要）:
 {
   "title": "問題タイトル（15文字以内）",
@@ -108,11 +130,18 @@ export async function evaluateAnswer(question, answer, skill, apiKey) {
   return parseJSON(text);
 }
 
-export async function generateLateralQuiz(difficulty, apiKey) {
+export async function generateLateralQuiz(difficulty, apiKey, recentTitles = []) {
+  const theme = pickRandom(LATERAL_THEMES);
+  const avoidNote = recentTitles.length
+    ? `\n直近で出題した以下のタイトルとは異なる状況・トリックにしてください: ${recentTitles.join('、')}\n`
+    : '';
   const prompt = `あなたは「水平思考クイズ（ウミガメのスープ）」の出題者です。
 以下の条件で新しい問題を1問作成してください。プレイヤーは「はい/いいえ」で答えられる質問を重ねながら、隠された真相を推理します。
 
+テーマ: ${theme}
 難易度: ${DIFFICULTY_LABELS[difficulty]}
+${avoidNote}
+注意: 「トンネルを抜けたら逮捕された」「コーヒーを見て青ざめた」「氷の弾丸」など、水平思考クイズでよく使われる定番ネタをそのまま使うのは避け、上記テーマに沿った独自性のある状況を考えてください。
 
 出力形式（JSONのみ。説明文は一切不要）:
 {

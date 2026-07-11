@@ -48,7 +48,8 @@ export default function Lateral() {
     setLoadingPuzzle(true);
     setError('');
     try {
-      const q = await generateLateralQuiz(difficulty, key);
+      const recentTitles = storage.getLateralHistory().slice(0, 5).map(h => h.title).filter(Boolean);
+      const q = await generateLateralQuiz(difficulty, key, recentTitles);
       setPuzzle(q);
       setQaLog([]);
       setShowHint(false);

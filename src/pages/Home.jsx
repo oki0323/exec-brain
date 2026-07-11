@@ -40,7 +40,11 @@ export default function Home() {
     setLoading(true);
     setError('');
     try {
-      const q = await generateQuestion(todaySkill.key, difficulty, key);
+      const recentQuestions = storage.getHistory()
+        .filter(h => h.skill === todaySkill.key)
+        .slice(0, 5)
+        .map(h => h.question);
+      const q = await generateQuestion(todaySkill.key, difficulty, key, recentQuestions);
       navigate('/question', { state: { question: q, skill: todaySkill } });
     } catch (e) {
       console.error('generateQuestion error:', e);
