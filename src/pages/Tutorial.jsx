@@ -38,7 +38,7 @@ const SLIDES = [
   {
     emoji: '🔑',
     title: 'APIキーを設定しよう',
-    body: 'Google AI Studio でGemini APIキーを取得し、設定画面から入力してください。APIキーはブラウザ内にのみ保存されます。',
+    body: 'OpenAI Platform でAPIキーを取得し、設定画面から入力してください。APIキーはブラウザ内にのみ保存されます。',
     note: '設定 → APIキー入力 から後で変更できます',
   },
 ];

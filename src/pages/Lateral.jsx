@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { storage } from '../services/storage';
-import { generateLateralQuiz, answerLateralQuestion, judgeLateralGuess } from '../services/gemini';
+import { generateLateralQuiz, answerLateralQuestion, judgeLateralGuess } from '../services/openai';
 
 const DIFFICULTY_LABELS = { beginner: '初級', intermediate: '中級', advanced: '上級' };
 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { storage } from '../services/storage';
-import { evaluateAnswer } from '../services/gemini';
+import { evaluateAnswer } from '../services/openai';
 
 export default function Question() {
   const { state } = useLocation();

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { storage } from '../services/storage';
-import { generateQuestion } from '../services/gemini';
+import { generateQuestion } from '../services/openai';
 
 const SKILLS = [
   { key: 'logical', label: 'ロジカルシンキング', emoji: '🔵', color: 'var(--logical)' },

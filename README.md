@@ -1,12 +1,13 @@
 # 🧠 Exec Brain
 
 経営者思考を毎日5〜10分で鍛えるAIトレーニングWebアプリ。
-Gemini 2.5 Flash によって問題生成・フィードバックを行います。
+OpenAI（GPT）によって問題生成・フィードバックを行います。
 
 ## 機能
 
 - **デイリーチャレンジ** — 5領域（ロジカル・発想力・数字感覚・意思決定・言語化）からランダム出題
-- **AIフィードバック** — 回答をGeminiが採点。改善点・模範解答を表示
+- **水平思考クイズ** — 状況を推理する「はい/いいえ」クイズ
+- **AIフィードバック** — 回答をAIが採点。改善点・模範解答を表示
 - **成長トラッカー** — レーダーチャートでスキルバランスを可視化
 - **ストリーク** — 連続学習日数を記録
 - **チュートリアル** — 初回起動時にアプリの使い方を案内
@@ -16,7 +17,7 @@ Gemini 2.5 Flash によって問題生成・フィードバックを行います
 - React + Vite
 - React Router v7
 - Recharts（レーダーチャート）
-- Google Generative AI SDK（Gemini 2.5 Flash）
+- OpenAI API（GPT-4o mini）
 - localStorage（データ保存）
 
 ---
@@ -33,16 +34,16 @@ npm install
 
 ### 2. APIキーの取得
 
-1. [Google AI Studio](https://aistudio.google.com/app/apikey) を開く
-2. 「Create API key」をクリック
-3. 表示されたキー（`AIza...`）をコピーする
+1. [OpenAI Platform](https://platform.openai.com/api-keys) を開く
+2. 「Create new secret key」をクリック
+3. 表示されたキー（`sk-...`）をコピーする
 
 ### 3. 環境変数の設定（ローカル開発用）
 
 `.env.local` ファイルを編集して、取得したAPIキーを貼り付ける:
 
 ```
-VITE_GEMINI_API_KEY=AIzaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+VITE_OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 > `.env.local` は `.gitignore` に含まれているため、GitHubには公開されません。
@@ -90,7 +91,7 @@ vercel
 1. [vercel.com](https://vercel.com) にサインイン
 2. 「New Project」→ GitHubリポジトリを選択
 3. **Environment Variables** に以下を追加:
-   - `VITE_GEMINI_API_KEY` = `AIzaxxxxxxxx...`（APIキー）
+   - `VITE_OPENAI_API_KEY` = `sk-xxxxxxxx...`（APIキー）
 4. 「Deploy」をクリック
 
 ### 重要: Vercel側のAPIキー設定
