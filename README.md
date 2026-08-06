@@ -113,3 +113,11 @@ npm run build
 ## ライセンス
 
 MIT
+
+---
+
+## 関連アプリ: AI秘書
+
+`ai-secretary/` に、経営者の日々の業務を支える別アプリ「AI秘書」があります。
+チャット相談・タスク整理・スケジュール記録・議事録要約の4機能を持つ、Exec Brainとは独立したReact/Viteアプリです。
+詳細は [`ai-secretary/README.md`](./ai-secretary/README.md) を参照してください。
