@@ -48,8 +48,10 @@ async function chatCompletion(apiKey, messages, { json = false } = {}) {
     } catch (e) {
       const status = e?.status;
       const isRetryable = status === 429 || status === 500 || status === 503;
-      lastError = e;
-      if (!isRetryable) throw e;
+      lastError = status
+        ? e
+        : new Error('通信に失敗しました。ネットワーク接続を確認してください。');
+      if (!isRetryable) throw lastError;
     }
   }
   throw lastError;
